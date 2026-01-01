@@ -4,6 +4,3 @@ eventlet
 opencv-python-headless
 numpy
 flask-sqlalchemy
-streamlit
-streamlit-webrtc
-av

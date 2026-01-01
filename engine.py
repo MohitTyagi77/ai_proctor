@@ -15,16 +15,12 @@ class ProctorEngine:
 
     def process_frame(self, base64_image):
         try:
-            # Check if input is already a numpy array (Streamlit case)
-            if isinstance(base64_image, np.ndarray):
-                image = base64_image
-            else:
-                # Decode base64 image (Flask case)
-                if ',' in base64_image:
-                    base64_image = base64_image.split(',')[1]
-                image_bytes = base64.b64decode(base64_image)
-                np_arr = np.frombuffer(image_bytes, np.uint8)
-                image = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
+            # Decode base64 image
+            if ',' in base64_image:
+                base64_image = base64_image.split(',')[1]
+            image_bytes = base64.b64decode(base64_image)
+            np_arr = np.frombuffer(image_bytes, np.uint8)
+            image = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
 
             if image is None:
                 return {'error': 'Failed to decode image'}
