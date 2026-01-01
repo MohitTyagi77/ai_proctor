@@ -37,9 +37,10 @@ st.markdown("""
 # --- Title ---
 st.title("AI Proctoring System")
 
-# --- Initialize Engine ---
-if 'engine' not in st.session_state:
-    st.session_state.engine = ProctorEngine()
+# --- Initialize Engine (Cached) ---
+@st.cache_resource
+def get_engine():
+    return ProctorEngine()
 
 if 'trust_score' not in st.session_state:
     st.session_state['trust_score'] = 100.0
@@ -50,7 +51,7 @@ if 'log' not in st.session_state:
 # --- Video Processor ---
 class VideoProcessor(VideoTransformerBase):
     def __init__(self):
-        self.engine = st.session_state.engine
+        self.engine = get_engine()
 
     def recv(self, frame):
         img = frame.to_ndarray(format="bgr24")
