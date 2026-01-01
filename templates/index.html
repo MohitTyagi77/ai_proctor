@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Proctoring Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.js"></script>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h1>AI Proctoring System</h1>
+                <div class="status-badge" id="connectionStatus">Disconnected</div>
+            </header>
+
+            <div class="video-section">
+                <div class="video-container">
+                    <video id="videoElement" autoplay playsinline muted></video>
+                    <canvas id="videoCanvas" style="display:none;"></canvas>
+                    <div class="overlay" id="alertOverlay">
+                        <span id="alertMessage"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Metrics Panel (Trust & Status) -->
+            <div class="metrics-panel">
+                <div class="metric-card trust-card">
+                    <h3>Trust Score</h3>
+                    <div class="score-display">
+                        <svg class="progress-ring" width="120" height="120">
+                            <circle class="progress-ring__circle" stroke="white" stroke-width="8" fill="transparent"
+                                r="52" cx="60" cy="60" />
+                        </svg>
+                        <span id="trustScoreValue">100%</span>
+                    </div>
+                </div>
+                <div class="metric-card info-card">
+                    <h3>Status</h3>
+                    <p id="statusText">Scanning...</p>
+                    <p class="sub-text" id="faceCount">Faces: 0</p>
+                </div>
+            </div>
+        </main>
+
+        <aside class="sidebar">
+            <h2>Event Log</h2>
+            <div class="log-container" id="logContainer">
+                <!-- Logs will appear here -->
+            </div>
+        </aside>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>
